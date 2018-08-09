@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .banner {
+            width: 800px;
+            height: 300px;
+            margin: auto;
+            position: relative;
+        }
+
+        .banner_img_a {
+            position: absolute;
+        }
+
+        .banner_img_a img {
+            width: 100%;
+            height: 300px;
+        }
+
+        .banner .num {
+            color: black;
+            position: absolute;
+            bottom: 20px;
+            left: 10px;
+        }
+
+        .banner span {
+            background-color: antiquewhite;
+            padding: 4px 9px;
+            border: 1px solid antiquewhite;
+        }
+
+        .cur {
+            border-color: rgb(82, 81, 79) !important;
+        }
+
+        .banner .page {
+            position: absolute;
+            right: 20px;
+            bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="banner">
+        <a href="" class="banner_img_a" style="display: block;">
+            <img src="QQ图片20180710091342.png" alt="">
+        </a>
+        <a href="" class="banner_img_a" style="display: none;">
+            <img src="tu.jpg" alt="">
+        </a>
+        <a href="" class="banner_img_a" style="display: none;">
+            <img src="tu2.png" alt="">
+        </a>
+        <a href="" class="banner_img_a" style="display: none;">
+            <img src="tu3.jpg" alt="">
+        </a>
+
+        <!-- 轮播序号 -->
+        <div class="num">
+            <span class="cur">1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+        </div>
+        <!-- 上一张下一张 -->
+        <div class="page">
+            <span class="prev">&lt;</span>
+            <span class="next">&gt;</span>
+        </div>
+    </div>
+
+    <script>
+        // 获取要操作的标签
+        // 获取所有图片
+        var imgs = document.querySelectorAll('.banner_img_a');
+        var spans = document.querySelectorAll('.num span');
+        var netxpage = document.querySelector('.next');
+        var prevpage = document.querySelector('.prev')
+
+        // 定义一个变量来设置当前的位置。
+        var index = 0;
+        // 用来记录上一张图片的
+        var prev =imgs[0];
+        // 记录上一个数字
+        var prevnum = spans[0];
+        // 定义一个函数 来计算索引值变化
+        function showindex() {
+            // if(index>=imgs.length-1){
+            //     index=0;
+            // }else{
+            //     index+1;
+            // }
+            // 
+            index = index >= imgs.length - 1 ? 0 : index + 1;
+            console.log(index);
+            move()
+        }
+            // 轮播图动起来
+        function move() {
+                prev.style.display='none';
+                imgs[index].style.display = 'block';
+                prev=imgs[index];
+
+                prevnum.className='';
+                spans[index].className='cur';
+                prevnum=spans[index];
+            }
+      var img=  setInterval(showindex, 1000);
+            
+            netxpage.onclick=function(){
+                clearInterval(img);
+                showindex();
+            }
+            prevpage.onclick=function(){
+                clearInterval(img);
+               index = index<=0?imgs.length-1:index-1;
+               move();
+               console.log(index);
+               
+            }
+    </script>
+</body>
+
+</html>
